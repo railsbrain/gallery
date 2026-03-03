@@ -1,7 +1,38 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://railsbrain.github.io/gallery/'
 languageCode = 'en-us'
-title = 'My New Hugo Project'
+title = 'Family Photo Gallery'
 theme = 'ananke'
+
+[params]
+  mainSections = ['albums']
+  description = 'A place to share memories with family and friends'
+  author = 'railsbrain'
+  background_color_class = 'bg-black'
+  featured_image = ''
+  recent_posts_number = 10
+
+[params.gallery]
+  # Gallery-specific settings
+  enable_lightbox = true
+  photos_per_row = 3
+  thumbnail_quality = 80
+
+# Menu configuration
+[[menu.main]]
+  name = 'Home'
+  url = '/'
+  weight = 1
+
+[[menu.main]]
+  name = 'Albums'
+  url = '/albums/'
+  weight = 2
+
+[[menu.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 3
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'

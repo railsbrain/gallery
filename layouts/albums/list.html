@@ -1,0 +1,94 @@
+{{ define "main" }}
+<div class="albums-list ph4 pv5">
+  <h1 class="f1 mb4">{{ .Title }}</h1>
+  {{ with .Description }}
+  <p class="f4 silver mb4">{{ . }}</p>
+  {{ end }}
+
+  <div class="album-grid">
+    {{ range .Pages }}
+    <a href="{{ .Permalink }}" class="album-card dim">
+      {{ $albumCover := "" }}
+      {{ if .Params.cover }}
+        {{ $albumCover = .Params.cover }}
+      {{ else if .Resources }}
+        {{ range first 1 .Resources }}
+          {{ if eq .ResourceType "image" }}
+            {{ $albumCover = .RelPermalink }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ if $albumCover }}
+        <div class="album-cover" style="background-image: url('{{ $albumCover }}')">
+      {{ else }}
+        <div class="album-cover album-placeholder">
+      {{ end }}
+        <div class="album-overlay pa3">
+          <h3 class="f3 ma0 mb1">{{ .Title }}</h3>
+          {{ with .Params.description }}
+          <p class="f6 silver ma0 mb2">{{ . }}</p>
+          {{ end }}
+          <p class="f7 silver ma0">
+            {{ if .Params.photos }}{{ len .Params.photos }} photos{{ else }}{{ len .Resources }} photos{{ end }}
+          </p>
+        </div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  {{ if eq (len .Pages) 0 }}
+  <div class="tc pa5 silver">
+    <p class="f4">No albums yet</p>
+    <p class="f6">Create content/albums/my-album/_index.md to add your first album!</p>
+  </div>
+  {{ end }}
+</div>
+
+<style>
+.albums-list {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.album-card {
+  text-decoration: none;
+  display: block;
+}
+
+.album-cover {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.album-placeholder {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+.album-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  color: white;
+}
+
+.album-card:hover .album-cover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+}
+</style>
+{{ end }}

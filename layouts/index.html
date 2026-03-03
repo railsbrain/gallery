@@ -1,0 +1,91 @@
+{{ define "main" }}
+<div class="gallery-home">
+  <div class="hero pa4 bg-black white tc">
+    <h1 class="f1 mv0">{{ .Site.Title }}</h1>
+    <p class="f4 mt3 mb4 silver">{{ .Site.Params.description }}</p>
+    <a href="/albums/" class="btn f5 link dim ph4 pv3 dib white bg-blue">Browse Albums</a>
+  </div>
+
+  <div class="recent-albums pa4">
+    <h2 class="f2 mb4">Recent Albums</h2>
+    <div class="album-grid">
+      {{ range first 6 (where .Site.RegularPages "Section" "albums") }}
+      <a href="{{ .Permalink }}" class="album-card dim">
+        {{ $albumCover := "" }}
+        {{ if .Params.cover }}
+          {{ $albumCover = .Params.cover }}
+        {{ else if .Resources }}
+          {{ range first 1 .Resources }}
+            {{ if eq .ResourceType "image" }}
+              {{ $albumCover = .RelPermalink }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ if $albumCover }}
+          <div class="album-cover" style="background-image: url('{{ $albumCover }}')">
+        {{ else }}
+          <div class="album-cover album-placeholder">
+        {{ end }}
+          <div class="album-overlay pa3">
+            <h3 class="f4 ma0 mb1">{{ .Title }}</h3>
+            <p class="f6 silver ma0">{{ .Params.photos | len }} photos</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+
+    {{ if eq (len (where .Site.RegularPages "Section" "albums")) 0 }}
+    <div class="tc pa5 silver">
+      <p class="f4">No albums yet</p>
+      <p class="f6">Add some photos to get started!</p>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<style>
+.gallery-home .hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.album-card {
+  text-decoration: none;
+  display: block;
+}
+
+.album-cover {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.album-placeholder {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+.album-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  color: white;
+}
+
+.album-card:hover .album-cover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+</style>
+{{ end }}
