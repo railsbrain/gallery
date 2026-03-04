@@ -1,4 +1,4 @@
-# Family Photo Gallery
+# Gallery
 
 A beautiful, private photo gallery for sharing memories with family and friends. Built with [Hugo](https://gohugo.io/) and deployed on [GitHub Pages](https://pages.github.com/).
 

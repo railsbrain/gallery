@@ -1,5 +1,5 @@
 ---
-title: "Family Vacation 2024"
+title: "Vacation 2024"
 description: "Our amazing summer trip to the mountains"
 date: 2024-07-15
 cover: "https://picsum.photos/seed/family2024/800/600"
@@ -15,5 +15,5 @@ photos:
   - src: "https://picsum.photos/seed/lake2024/1200/800"
     title: "Perfect afternoon by the lake"
   - src: "https://picsum.photos/seed/dinner2024/1200/800"
-    title: "Family dinner night"
+    title: "Dinner night"
 ---

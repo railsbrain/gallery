@@ -1,11 +1,11 @@
 baseURL = 'https://railsbrain.github.io/gallery/'
 languageCode = 'en-us'
-title = 'Family Photo Gallery'
+title = 'Photo Gallery'
 theme = 'ananke'
 
 [params]
   mainSections = ['albums']
-  description = 'A place to share memories with family and friends'
+  description = 'A place to share memories with friends and family'
   author = 'railsbrain'
   background_color_class = 'bg-black'
   featured_image = ''
